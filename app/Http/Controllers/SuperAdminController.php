@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use DB;
+use App\Http\Requests;
+use Session;
+use Illuminate\Support\Facades\Redirect;
+Session_start();
+
+class SuperAdminController extends Controller
+{
+     public function index(){
+        $this-> Adminauthcheck();
+    	return view('admin.dashboard');
+    	//echo "welcome string"
+    }
+     public function logout(){
+
+   	Session::flush();
+   	return Redirect::to('/admin');
+   }
+
+
+public function Adminauthcheck(){
+
+$admin_id = Session::get('admin_id');
+if ($admin_id) {
+       return;
+}else{
+		return Redirect::to('/admin')->send();
+}
+
+
+}
+}
